@@ -17,18 +17,20 @@ clc
 % Close any open figures
 close all
 
-%% Variable Assignments
+%% Get User Inputs
+
 % Individual's birthday
-birthYear   = 1998;
-birthMonth  = 01;
-birthDay    = 26;
+birthYear   = input("In what year were you born?: ");
+birthMonth  = input("In what month were you born? (As a Number): ");
+birthDay    = input("On what day of the month were you born?: ");
 
 % Current year, month, day
 % You can check that year, month and day are actually functions - so don't
 % use them!
-todayYear   = 2025;
-todayMonth  = 01;
-todayDay    = 16;
+todayYear   = input("What is the current year?: ");
+todayMonth  = input("What is the current month? (As a number): ");
+todayDay    = input("What is the current day? (As a number): ");
+
 %% Calculate How Many Days Old
 % Assumptions being made: 
 %   1) We are ignoring leap years
