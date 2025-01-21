@@ -3,7 +3,8 @@
 % compares the value to to 32, and displays the appropriate message.
 %
 % * Authors: Joseph Heston
-% * January 14, 2025
+% * Collaborators: Section 09
+% * January 21, 2025
 
 %% Clearing the Workspace
 % It is good practice to write the following line of code at the start of
@@ -17,16 +18,12 @@ clc
 close all
 
 %% Get User Input:
+% Ask the user for the temperature as a "double", not a string. 
+% (That's why there's no 's' in the input command)
 
-temperatureValue = input("What is the temperature(degF)? ");
+temperatureValue = 
 
 %% Compare the input to 32:
+% Use an if-elseif-else conditional to compare below freezing, Exactly
+% freezing, and Above freezing. (And to catch a potential error)
 
-if temperatureValue < 32
-    disp("Below Freezing")
-elseif temperatureValue == 32
-    disp("Exactly Freezing")
-elseif temperatureValue > 32
-    disp("Above Freezing")
-else
-    disp("Error in com")

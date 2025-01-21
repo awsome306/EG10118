@@ -24,7 +24,6 @@ monthName = input("What month would you like to check? ",'s');
 % Once short (28) February's done, 
 % All the rest have 31. 
 
-
 switch monthName
     case {"september", "april", "june", "november"}
         numDays = 30;
@@ -37,4 +36,4 @@ switch monthName
 end
 
 % Display that the program has ended:
-disp("")
+disp("Program complete.")
