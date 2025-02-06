@@ -1,0 +1,53 @@
+%% countRandom.m
+% Generate random numbers between 
+% RAND_MIN and RAND_MAX
+% until the number GOAL_NUM has been generated
+% a total of GOAL_TIMES number of times. 
+%
+% * Author: Joseph Heston
+% * Date: 02-05-2025
+
+%% Clear the workspace
+clear, clc, close all
+
+%% Set Parameters
+RAND_MIN = 1;
+RAND_MAX = 10;
+GOAL_NUM = 5;
+GOAL_TIMES = 20;
+
+for i = 1:1000
+%% Compute the random numbers and display the output
+numTimes = 0;
+numGoal = 0;
+while numGoal < GOAL_TIMES 
+    randNum = randi([RAND_MIN RAND_MAX]);
+    %disp(randNum)
+    if randNum == GOAL_NUM
+        numGoal = numGoal + 1;
+    end
+    numTimes = numTimes+1;
+end
+
+disp("It took "+numTimes+" tries to generate the number "...
+    +GOAL_NUM+" a total of "+GOAL_TIMES+" times.")
+
+% Store the number of times in took in a vector.
+numTimesVec(i) = numTimes;
+end
+
+disp("On average, it takes: "+mean(numTimesVec)+" tries.")
+
+%%
+for i = 1:length(numTimesVec)
+    meanNumTimes(i) = mean(numTimesVec(1:i));
+end
+%%
+
+x = 1:length(meanNumTimes);
+plot(x,meanNumTimes)
+hold on
+plot(x,meanNumTimes+0.05*meanNumTimes*ones(size(x)),'r-')
+plot(x,meanNumTimes-0.05*meanNumTimes*ones(size(x)),'r-')
+plot(x,meanNumTimes*ones(size(x)),'k--')
+grid on

@@ -1,0 +1,51 @@
+%% countRandomBonus.m
+% If you finish the ALA, here is an additional challenge problem. 
+% 
+% Run the code in 'countRandom.m' repeatedly (for many times). 
+% * What was the average number of tries it took to reach GOAL_TIMES?
+% * How many times did you have to run 'countRandom.m' until the average
+% you computed was within 1% of the true average?
+%
+% * Author: Joseph Heston
+% * Date: Feb 5, 2025
+
+%% Clear the Workspace
+clear, clc, close all
+
+%% Set Parameters
+BIG_NUMBER = 2;
+
+%% Run countRandom
+
+% Initialize the numTimesVec:
+numTimesVec = zeros(BIG_NUMBER,1);
+
+% Run the for loop
+for n = 1:BIG_NUMBER 
+
+    % Run countRandom.m: 
+    countRandom 
+    % Make sure to comment the lines that clear the workspace, 
+    % otherwise you will delete your iterator variable. Suppress the disp
+    % if you want. 
+
+    % Store numTimes for later:
+    numTimesVec(n) = numTimes;
+end
+%%
+%clear GOAL_TIMES GOAL_NUM numGoal RAND_MIN RAND_MAX
+disp("On average, it takes: "+mean(numTimesVec)+" tries.")
+
+%%
+for n = 1:length(numTimesVec)
+    meanNumTimes(n) = mean(numTimesVec(1:n));
+end
+%%
+
+x = 1:length(meanNumTimes);
+plot(x,meanNumTimes)
+hold on
+plot(x,meanNumTimes(end)+0.01*meanNumTimes(end)*ones(size(x)),'r-')
+plot(x,meanNumTimes(end)-0.01*meanNumTimes(end)*ones(size(x)),'r-')
+plot(x,meanNumTimes(end)*ones(size(x)),'k--')
+grid on
