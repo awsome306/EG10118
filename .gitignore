@@ -12,4 +12,6 @@
 *.run.xml
 
 #Ignore PDF and just rebuild locally
-*.pdf 
+*.pdf
+# Ignore MATLAB autosaves
+*.asv 
