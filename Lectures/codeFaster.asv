@@ -1,0 +1,49 @@
+%% codeFaster.m
+% A set of exercises and examples of tips and tricks to write code faster
+% in MATLAB. (Mostly this is just a list of my most frquently used hotkeys)
+% 
+%
+% * Author: J. Heston
+% * Date: 3/2025
+%
+
+%% Section Break
+% Two percentage signs (%%) creates a new section. You can run just the
+% code within the current section by pressing CTRL+Enter. 
+
+% Press Ctrl and Enter while this section is selected.
+disp("Section 01 ran! But the rest of the code didn't.")
+
+% To jump between Sections, press Ctrl+Up/Down
+
+%% Don't Run Me!
+disp("Oops! The rest of the code ran!")
+
+%% When things go wrong:
+% Depending on your keyboard, the "Home" and "End" keys allow you to jump
+% to the beginning of a line or the end of line without mashing the arrows
+% keys. Press Shift+Home/End to select the entire line to delete it or copy
+% it easily!
+
+% Also, pressing Ctrl+backspace deletes a whole word at once. Pressing
+% Ctrl+Shift+<arrowKey> selects a whole word at once. 
+
+% Delete me:
+thisIsALongVariableName = 
+
+%% Running all the code:
+% To run all the code in a script without using the mouse, presss the F5
+% key (on Windows). Sometimes this won't work on laptops, since the F-keys
+% will be assigned to other functions (screen brightness, volume, etc.)
+
+%% Save your work often!
+% Press Ctrl+S to save your work.
+
+%% Bounce around!
+% If you need to access the command window quickly, you can press Ctrl+0 to
+% jump there instantly!
+% To get back to the script editor, press CTRL+SHIFT+0
+
+var = input("Please provide a number: ");
+disp("But now we're in the Command Window! Press CTRL+SHFT+0 to get back.")
+%%

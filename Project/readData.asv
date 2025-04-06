@@ -1,0 +1,73 @@
+%% Read the Data and Clean It for Processing
+% Read the Data
+% * Author: Joseph Heston
+% * Date: 4/5/2025
+%
+
+%% Clear the Workspace
+clear, clc, close all
+
+%% Load the Data 
+% As a table.
+% Working with Tables:
+% Subscripting into a table using one subscript (as in t(i)) is not
+% supported. Specify a row subscript and a variable subscript, as in
+% t(rows,vars). To select variables, use t(:,i) or for one variable
+% t.(i). To select rows, use t(i,:).
+
+T1 = readtable("data\pokemonA.csv");
+T2 = readtable("data\pokemonB.csv");
+
+% Preview tables:
+head(T1)
+head(T2)
+
+%% Use T2 (the simple table)
+clc
+T = T2;
+colNames = string(T.Properties.VariableNames);
+%% Remove "Mega Pokemon" From the Data Set
+
+% Init. row counter:
+iRow = 1;
+
+while iRow <= height(T)
+    if contains(T.Name(iRow),'Mega')
+        T(iRow,:) = [];
+    else
+        iRow = iRow +1;
+    end
+end
+
+
+%% Sort the Data By Type
+
+
+
+
+%%
+clc
+close all
+pokeStat = "Defense";
+colIndex = find(colNames ==pokeStat);
+histogram(table2array(T(:,colIndex)));
+grid on
+xlabel(pokeStat)
+ylabel("Number of Pokemon")
+
+%% Plot Stats by type:
+function plotPoke(T,pokeType,pokeStats)
+% FUNCTION_NAME Short Desc
+% Longer Description goes here
+% If only one argument, return all stats. 
+
+if nargin == 2
+    pokeStats = ["HP","Attack","Defense","Sp_Atk","Sp_Def","Speed"]
+end
+
+for statNum = 1:length(pokeStats)
+    pokeStat   = T(:,pokeStats(iStat))
+    T(:,pokeStat)
+end
+
+end
