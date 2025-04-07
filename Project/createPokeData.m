@@ -1,6 +1,10 @@
-function pokeData = createPokeData(T,pokeType,pokeStat)
+function pokeData = createPokeData(T,pokeType,pokeStat,pokeExclusive)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
+
+if nargin <= 3
+    pokeExclusive = false;
+end
 
 colNames = string(T.Properties.VariableNames);
 %rawData = T.Variables;

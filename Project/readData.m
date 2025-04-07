@@ -116,15 +116,16 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 
 %% Question 05: Is there a correlation between strong and weak?
 % If a Pokemon is weak in one stat, will it be strong, weak, or neutral in
-% another?
+% another? How does this correlation changed based on the Pokemon's "type"?
+%
 % Visual: A regular plot, (with a trendline and confidence interval)
 % User Interactions:
 % * Select X and Y stats
 % * Filter by Type, or select all Pokemon
 
-pokeType= "Water";
+pokeType= "Electric";
 statX   = "Attack";
-statY   = "Defense";
+statY   = "Sp_Atk";
 
 pokeX   = createPokeData(T,pokeType,statX);
 pokeY   = createPokeData(T,pokeType,statY);
