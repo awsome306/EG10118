@@ -114,6 +114,19 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 %% Question 04: How many Pokemon are there in each type?
 % How does this number vary with Generation?
 
+% REUSE YOUR POKEDATA FUNCTION, since you already have it!
+% This took me literally 5 minutes during Andrew's class
+for iType = 1:length(pokeTypes)
+    numPoke(iType) = length(createPokeData(T,pokeTypes(iType),"HP"));
+end
+figure()
+bar(pokeTypes,numPoke)
+grid on
+% If I wanted to compare generations, I could tweek my createPokeData
+% function slightly to accept GEN as an argument, then I could look at this
+% for each generation
+
+
 %% Question 05: Is there a correlation between strong and weak?
 % If a Pokemon is weak in one stat, will it be strong, weak, or neutral in
 % another? How does this correlation changed based on the Pokemon's "type"?
@@ -123,9 +136,9 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 % * Select X and Y stats
 % * Filter by Type, or select all Pokemon
 
-pokeType= "Electric";
+pokeType= "Water";
 statX   = "Attack";
-statY   = "Sp_Atk";
+statY   = "Defense";
 
 pokeX   = createPokeData(T,pokeType,statX);
 pokeY   = createPokeData(T,pokeType,statY);
