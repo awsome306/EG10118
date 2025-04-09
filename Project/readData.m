@@ -39,18 +39,22 @@ colNames = string(T.Properties.VariableNames);
 % Init. row counter:
 iRow = 1;
 
+rmList = [];
 while iRow <= height(T)
-    if contains(T.Name(iRow),'Mega')
+    if contains(T.Name(iRow),'Mega') & ~(contains(T.Name(iRow),'Meganium'))
+        rmList = [rmList;T(iRow,"Name")];
         T(iRow,:) = [];
     else
         iRow = iRow +1;
     end
 end
 
+rmList
+T2 = T;
+
 %% Part0a: Gen 1 Subset
 % Limit analysis to Gen 1 for testing:
-T = T(find(T.Generation ==1),:)
-
+T = T(find(T.Generation == 1),:)
 
 %% Part 0aa: Parse the Data
 pokeNames = string(T.Name);
@@ -81,9 +85,29 @@ for iRow = 1:length(bigListOfTypes)
     seenAlready = false;
 end
 
-
 % Alphabetize & Finalize the list:
-pokeTypes = sort(typesSeenAlready)
+pokeTypes = sort(typesSeenAlready);
+
+% Now that the list is sorted, let's assign a list of colors to use later:
+pokeColors = ["#000000",%Null
+            "#1dcb99", % Bug
+            "#6602ee", % Dragon
+            "#cca902", % Elec
+            "#f7b3f4", % Fairy
+            "#374756", % Fighting
+            "#e06211", % Fire
+            "#501068", % Ghost
+            "#106819", % Grass
+            "#685510", % Ground
+            "#24dad5", % Ice
+            "#2874a6", % Normal
+            "#b000e8", % Poison
+            "#d600e8", % Psychic
+            "#281758", % Rock
+            "#3498db" % Water
+            ];
+
+pokeColorDict = dictionary(pokeTypes,pokeColors');
 
 % Clean-up:
 clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
@@ -99,6 +123,9 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 % * Select Types from Bubble-list
 % * Filter by Single vs. Double typing
 % * Filter by Evolution stage (From another data set)
+
+
+
 
 %% Question 02: Poke-Power Creep
 % Have Pokemon gotten stronger as the franchise has grown? 
@@ -116,11 +143,28 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 
 % REUSE YOUR POKEDATA FUNCTION, since you already have it!
 % This took me literally 5 minutes during Andrew's class
+
+GenNum = 4;
+plotPercentage = true;
+
+T = T2(find(T2.Generation == GenNum),:)
 for iType = 1:length(pokeTypes)
     numPoke(iType) = length(createPokeData(T,pokeTypes(iType),"HP"));
 end
+
 figure()
-bar(pokeTypes,numPoke)
+
+if plotPercentage
+    bar(pokeTypes,numPoke./height(T).*100)
+    ylabel('Amount of Pokemon [%]')
+elseif ~plotPercentage
+    bar(pokeTypes,numPoke)
+end
+
+tit = sprintf("Generation %i",GenNum)
+subTit =sprintf("%i Pokemon in total",height(T))
+title(tit)
+subtitle(subTit)
 grid on
 % If I wanted to compare generations, I could tweek my createPokeData
 % function slightly to accept GEN as an argument, then I could look at this
@@ -136,7 +180,13 @@ grid on
 % * Select X and Y stats
 % * Filter by Type, or select all Pokemon
 
-pokeType= "Water";
+% 
+% for i = 2:length(pokeTypes)
+%     pokeType = pokeTypes(i);
+% end
+
+
+pokeType= "Electric";
 statX   = "Attack";
 statY   = "Defense";
 
@@ -145,11 +195,14 @@ pokeY   = createPokeData(T,pokeType,statY);
 
 close all
 figure()
-plot(pokeX,pokeY,'k*','DisplayName',pokeType)
+plot(pokeX,pokeY,'x','DisplayName',pokeType,'Color',pokeColorDict(pokeType))
 xlabel(statX)
 ylabel(statY)
 legend()
 grid on
+
+hold on
+
 
 % Create and plot trendline
 fitOrder = 1;
@@ -159,6 +212,7 @@ yTrendVals = polyval(p,xTrendVals);
 
 hold on
 plot(xTrendVals,yTrendVals,'b--','LineWidth',2,'DisplayName','TrendLine')
+
 
 
 %% Sort and Filter the Data By Type

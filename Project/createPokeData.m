@@ -9,7 +9,7 @@ end
 colNames = string(T.Properties.VariableNames);
 %rawData = T.Variables;
 
-pokeStats = ["HP","Attack","Defense","Sp_Atk","Sp_Def","Speed"]
+pokeStats = ["Total","HP","Attack","Defense","Sp_Atk","Sp_Def","Speed"]
 
 %pokeType = "Electric";
 %pokeStat = "Speed";
