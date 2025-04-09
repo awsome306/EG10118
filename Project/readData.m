@@ -144,7 +144,7 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 % REUSE YOUR POKEDATA FUNCTION, since you already have it!
 % This took me literally 5 minutes during Andrew's class
 
-GenNum = 4;
+GenNum = 1;
 plotPercentage = true;
 
 T = T2(find(T2.Generation == GenNum),:)
@@ -155,14 +155,17 @@ end
 figure()
 
 if plotPercentage
-    bar(pokeTypes,numPoke./height(T).*100)
+    b = bar(pokeTypes,numPoke./height(T).*100)
     ylabel('Amount of Pokemon [%]')
 elseif ~plotPercentage
-    bar(pokeTypes,numPoke)
+    b = bar(pokeTypes,numPoke)
 end
 
-tit = sprintf("Generation %i",GenNum)
-subTit =sprintf("%i Pokemon in total",height(T))
+% WIP: Add unique colors to the bar chart
+%b(:).CData = hex2rgb(pokeColors);
+
+tit = sprintf("Generation %i",GenNum);
+subTit =sprintf("%i Pokemon in total",height(T));
 title(tit)
 subtitle(subTit)
 grid on
@@ -186,7 +189,7 @@ grid on
 % end
 
 
-pokeType= "Electric";
+pokeType= "Ground";
 statX   = "Attack";
 statY   = "Defense";
 
