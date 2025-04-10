@@ -9,24 +9,16 @@ clear, clc, close all
 
 %% Load the Data 
 % As a table.
+%
 % Working with Tables:
 % Subscripting into a table using one subscript (as in t(i)) is not
 % supported. Specify a row subscript and a variable subscript, as in
 % t(rows,vars). To select variables, use t(:,i) or for one variable
 % t.(i). To select rows, use t(i,:).
 
-%T1 = readtable("data\pokemonA.csv");
-%T2 = readtable("data\pokemonB.csv");
-
-T1 = readtable("data/pokemonA.csv");
-T2 = readtable("data/pokemonB.csv");
-
-
-% Preview tables:
-head(T1)
-head(T2)
-
-%% Use T2 (the simple table)
+% Works on Linux and Windows!
+T1 = readtable("data"+filesep+"pokemonA.csv");
+T2 = readtable("data"+filesep+"pokemonB.csv");
 T = T2;
 head(T)
 colNames = string(T.Properties.VariableNames);
