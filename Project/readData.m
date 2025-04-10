@@ -91,19 +91,22 @@ pokeTypes = sort(typesSeenAlready);
 pokeColors = [
             "#000000", ...Null
             "#1dcb99", ...Bug
+            "#524e9b", ...Dark
             "#6602ee", ...Dragon
             "#cca902", ...Elec
             "#f7b3f4", ...Fairy
             "#374756", ...Fighting
             "#e06211", ...Fire
+            "#A98FF3", ...Flying
             "#501068", ...Ghost
             "#106819", ...Grass
             "#685510", ...Ground
             "#24dad5", ...Ice
-            "#2874a6", ...Normal
+            "#A8A77A", ...Normal
             "#b000e8", ...Poison
             "#d600e8", ...Psychic
             "#281758", ...Rock
+            "#577784", ...Steel
             "#3498db"  ...Water
             ];
 
@@ -144,8 +147,8 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 % REUSE YOUR POKEDATA FUNCTION, since you already have it!
 % This took me literally 5 minutes during Andrew's class
 
-GenNum = 1;
-plotPercentage = true;
+GenNum = 2;
+plotPercentage = false;
 
 T = T2(find(T2.Generation == GenNum),:)
 for iType = 1:length(pokeTypes)
@@ -214,7 +217,7 @@ xTrendVals = min(pokeX):1:max(pokeX);
 yTrendVals = polyval(p,xTrendVals);
 
 hold on
-plot(xTrendVals,yTrendVals,'b--','LineWidth',2,'DisplayName','TrendLine')
+plot(xTrendVals,yTrendVals,'--','LineWidth',2,'DisplayName','TrendLine','Color',pokeColorDict(pokeType))
 
 
 
