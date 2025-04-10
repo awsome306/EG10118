@@ -19,38 +19,45 @@ clear, clc, close all
 % Works on Linux and Windows!
 T1 = readtable("data"+filesep+"pokemonA.csv");
 T2 = readtable("data"+filesep+"pokemonB.csv");
+
+% Preview tables:
+head(T1)
+head(T2)
+
+%% Use T2 (the simple table)
 T = T2;
 head(T)
 colNames = string(T.Properties.VariableNames);
 
 %rawData = T.Variables; % Doesn't work when the data types are different
 
-%% Part 0: Filter Out Mega-Pokemon
+%% Part 0: Clean the Data - Remove MEGAs
 % Remove "Mega Pokemon" From the Data Set
 
-% Init. row counter:
+% Init. row counter and list of the Pokemon removed.
 iRow = 1;
-c
 rmList = [];
+
 while iRow <= height(T)
-    if contains(T.Name(iRow),'Mega') & ~(contains(T.Name(iRow),'Meganium'))
-        rmList = [rmList;T(iRow,"Name")];
+    % The space after "Mega " matters! (Meganium is a false positive)
+    if contains(T.Name(iRow),'Mega ') %& ~(contains(T.Name(iRow),'Meganium'))
+        rmList = [rmList;T(iRow,"Name")]; %#ok<AGROW>
         T(iRow,:) = [];
     else
         iRow = iRow +1;
     end
 end
 
-rmList
-T2 = T;
-
-%% Part0a: Gen 1 Subset
-% Limit analysis to Gen 1 for testing:
-T = T(find(T.Generation == 1),:)
-
-%% Part 0aa: Parse the Data
+%% Part 0a: Parse the Data
+% Clean up the data types.
 pokeNames = string(T.Name);
-%% Part 0b: Get the list of Types
+T.Legendary = string(T.Legendary) == "True";
+
+%% Part0b: Gen 1 Subset
+% Limit analysis to Gen 1 for testing:
+% T = T(find(T.Generation == 1),:)
+
+%% Part 0c: Get the list of Types
 % I don't know all the types, and maybe they will add more. 
 % So, I need a way to check the whole list of types, and check if the
 % current type matches any I've seen already. 
