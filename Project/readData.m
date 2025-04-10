@@ -77,26 +77,27 @@ for iRow = 1:length(bigListOfTypes)
     seenAlready = false;
 end
 
-% Alphabetize & Finalize the list:
+% Alphabetize the list:
 pokeTypes = sort(typesSeenAlready);
 
 % Now that the list is sorted, let's assign a list of colors to use later:
-pokeColors = ["#000000",%Null
-            "#1dcb99", % Bug
-            "#6602ee", % Dragon
-            "#cca902", % Elec
-            "#f7b3f4", % Fairy
-            "#374756", % Fighting
-            "#e06211", % Fire
-            "#501068", % Ghost
-            "#106819", % Grass
-            "#685510", % Ground
-            "#24dad5", % Ice
-            "#2874a6", % Normal
-            "#b000e8", % Poison
-            "#d600e8", % Psychic
-            "#281758", % Rock
-            "#3498db" % Water
+pokeColors = [
+            "#000000", ...Null
+            "#1dcb99", ...Bug
+            "#6602ee", ...Dragon
+            "#cca902", ...Elec
+            "#f7b3f4", ...Fairy
+            "#374756", ...Fighting
+            "#e06211", ...Fire
+            "#501068", ...Ghost
+            "#106819", ...Grass
+            "#685510", ...Ground
+            "#24dad5", ...Ice
+            "#2874a6", ...Normal
+            "#b000e8", ...Poison
+            "#d600e8", ...Psychic
+            "#281758", ...Rock
+            "#3498db"  ...Water
             ];
 
 pokeColorDict = dictionary(pokeTypes,pokeColors');
