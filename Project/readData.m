@@ -38,7 +38,7 @@ colNames = string(T.Properties.VariableNames);
 
 % Init. row counter:
 iRow = 1;
-
+c
 rmList = [];
 while iRow <= height(T)
     if contains(T.Name(iRow),'Mega') & ~(contains(T.Name(iRow),'Meganium'))
