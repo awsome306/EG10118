@@ -87,6 +87,7 @@ end
 % Alphabetize the list:
 pokeTypes = sort(typesSeenAlready);
 
+% New code
 % Now that the list is sorted, let's assign a list of colors to use later:
 pokeColors = [
             "#000000", ...Null
