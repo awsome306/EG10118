@@ -21,14 +21,12 @@ T1 = readtable("data"+filesep+"pokemonA.csv");
 T2 = readtable("data"+filesep+"pokemonB.csv");
 
 % Preview tables:
-head(T1)
-head(T2)
+% head(T1)
+% head(T2)
 
 %% Use T2 (the simple table)
 T = T2;
-head(T)
 colNames = string(T.Properties.VariableNames);
-
 %rawData = T.Variables; % Doesn't work when the data types are different
 
 %% Part 0: Clean the Data - Remove MEGAs
@@ -48,10 +46,14 @@ while iRow <= height(T)
     end
 end
 
+rmList
+clear rmList
+
 %% Part 0a: Parse the Data
 % Clean up the data types.
 pokeNames = string(T.Name);
-T.Legendary = string(T.Legendary) == "True";
+T.Legendary = (string(T.Legendary) == "True")
+
 
 %% Part0b: Gen 1 Subset
 % Limit analysis to Gen 1 for testing:
@@ -63,7 +65,7 @@ T.Legendary = string(T.Legendary) == "True";
 % current type matches any I've seen already. 
 % Then if it doesn't, I'll record it to the list. 
 
-bigListOfTypes  = string(T{:,"Type1"});
+bigListOfTypes  = string(T.Type1);
 typesSeenAlready= ""; % Init with nothing
 seenAlready     = false;
 
@@ -87,7 +89,6 @@ end
 % Alphabetize the list:
 pokeTypes = sort(typesSeenAlready);
 
-% New code
 % Now that the list is sorted, let's assign a list of colors to use later:
 pokeColors = [
             "#000000", ...Null
@@ -111,7 +112,7 @@ pokeColors = [
             "#3498db"  ...Water
             ];
 
-pokeColorDict = dictionary(pokeTypes,pokeColors');
+pokeColorDict = dictionary(pokeTypes,pokeColors);
 
 % Clean-up:
 clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
@@ -128,15 +129,30 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 % * Filter by Single vs. Double typing
 % * Filter by Evolution stage (From another data set)
 
-
-
-
 %% Question 02: Poke-Power Creep
 % Have Pokemon gotten stronger as the franchise has grown? 
 
 % Count the number of legendaries in each generation, 
 % But really, look at the distribution of stats in each generation
 
+% Init numLegendaries vector:
+numLegendaries = zeros([max(T.Generation), 1]);
+
+for iGen = 1:max(T.Generation)
+    numLegendaries(iGen) = sum((T.Generation==iGen)&T.Legendary);
+
+    % Output names of the Legendary Pokemon:
+    % disp("The Legendaries in Generation "+string(iGen)+" are:")
+    % disp(string(table2cell(T((T.Generation==iGen)&T.Legendary,"Name")))')
+end
+
+
+
+figure("Name","Legendary")
+plot(numLegendaries,'bo-')
+grid on
+xlabel("Generation Number")
+ylabel("Number of Legendary Pokemon")
 
 %% Question 03: What would be the best Pokemon?
 % Instead of looking at the total, what if I take a weighted-average based
@@ -148,35 +164,41 @@ clear iRow jCol seenAlready typesSeenAlready bigListOfTypes
 % REUSE YOUR POKEDATA FUNCTION, since you already have it!
 % This took me literally 5 minutes during Andrew's class
 
-GenNum = 2;
-plotPercentage = false;
 
-T = T2(find(T2.Generation == GenNum),:)
+GenNum = 4;
+plotPercentage = true;
+
+
+% Create a table that's filtered by Generation:
+T_GenNum = T((T.Generation == GenNum),:);
+
+% Initialize the numPoke vector:
+numPoke = zeros([length(pokeTypes), 1]);
+
+% Count how many pokemon there are of each type
 for iType = 1:length(pokeTypes)
-    numPoke(iType) = length(createPokeData(T,pokeTypes(iType),"HP"));
+    numPoke(iType) = length(createPokeData(T_GenNum,pokeTypes(iType),"HP"));
 end
 
+% Plot:
 figure()
-
 if plotPercentage
-    b = bar(pokeTypes,numPoke./height(T).*100)
+    b = bar(pokeTypes,numPoke./height(T_GenNum).*100); %#ok<UNRCH>
     ylabel('Amount of Pokemon [%]')
+    grid minor
 elseif ~plotPercentage
-    b = bar(pokeTypes,numPoke)
+    b = bar(pokeTypes,numPoke); %#ok<UNRCH>
+    ylabel('Number of Pokemon')
 end
 
 % WIP: Add unique colors to the bar chart
 %b(:).CData = hex2rgb(pokeColors);
 
 tit = sprintf("Generation %i",GenNum);
-subTit =sprintf("%i Pokemon in total",height(T));
+subTit =sprintf("%i Pokemon in total",height(T_GenNum));
 title(tit)
 subtitle(subTit)
 grid on
-% If I wanted to compare generations, I could tweek my createPokeData
-% function slightly to accept GEN as an argument, then I could look at this
-% for each generation
-
 
 %% Question 05: Is there a correlation between strong and weak?
 % If a Pokemon is weak in one stat, will it be strong, weak, or neutral in
@@ -193,15 +215,16 @@ grid on
 % end
 
 
-pokeType= "Ground";
+pokeType= "Fire";
 statX   = "Attack";
-statY   = "Defense";
+statY   = "Speed";
 
 pokeX   = createPokeData(T,pokeType,statX);
 pokeY   = createPokeData(T,pokeType,statY);
 
-close all
-figure()
+
+% Plot:
+%figure()
 plot(pokeX,pokeY,'x','DisplayName',pokeType,'Color',pokeColorDict(pokeType))
 xlabel(statX)
 ylabel(statY)
@@ -209,7 +232,6 @@ legend()
 grid on
 
 hold on
-
 
 % Create and plot trendline
 fitOrder = 1;
