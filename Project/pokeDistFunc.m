@@ -30,7 +30,6 @@ cAxes = app.UIAxes2;
 if plotPercentage
     b = bar(cAxes,pokeTypes,numPoke./height(subPokeTable).*100); %#ok<UNRCH>
     ylabel(cAxes,'Amount of Pokemon [%]')
-    grid minor
 elseif ~plotPercentage
     b = bar(cAxes,pokeTypes,numPoke); %#ok<UNRCH>
     ylabel(cAxes,'Number of Pokemon')
