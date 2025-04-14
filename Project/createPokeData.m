@@ -13,9 +13,9 @@ if nargin <= 3
 end
 
 % Get a 'logical' array of whether or not a Pokemon belongs to the type:
-isType = (T.Type1 == pokeType)|(T.Type2==pokeType);
+isType = (string(T.Type1) == pokeType)|(string(T.Type2)==pokeType);
 % If a Pokemon has only one typing, the second type is blank:
-isExclusive = (T.Type2 == string());
+isExclusive = (string(T.Type2) == string());
 
 %%
 % disp("These Pokemon:")

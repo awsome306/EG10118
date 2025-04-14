@@ -10,7 +10,7 @@ function outputTable = readAndFilterTable()
 
 %% Use T2 (the simple table)
 T = readtable("data"+filesep+"pokemonB.csv");
-colNames = string(T.Properties.VariableNames);
+%colNames = string(T.Properties.VariableNames);
 %rawData = T.Variables; % Doesn't work when the data types are different
 
 %% Clean the Data - Remove MEGAs
@@ -35,7 +35,7 @@ end
 %clear rmList
 
 %% Clean Up the data types
-T.Legendary = (string(T.Legendary) == "True")
+T.Legendary = (string(T.Legendary) == "True");
 
 %% Finalize Output
 outputTable = T;

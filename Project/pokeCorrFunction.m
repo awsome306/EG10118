@@ -14,9 +14,12 @@ function pokeCorrFunction(app)
 %     pokeType = pokeTypes(i);
 % end
 
-pokeType= app.PokeTypeDropDown;
-statX   = app.XStatDropDow.Value;
+pokeType= app.PokemonTypeDropDown.Value;
+statX   = app.XStatDropDown.Value;
 statY   = app.YStatDropDown.Value;
+
+T = app.pokeTable;
+pokeColorDict = app.pokeColorDict;
 
 pokeX   = createPokeData(T,pokeType,statX);
 pokeY   = createPokeData(T,pokeType,statY);
@@ -27,7 +30,7 @@ cAxes = app.UIAxes; % Set of app axes to plot on
 plot(cAxes,pokeX,pokeY,'x','DisplayName',pokeType,'Color',pokeColorDict(pokeType))
 xlabel(cAxes,statX)
 ylabel(cAxes,statY)
-legend(cAxes)
+legend(cAxes,'Location','northwest')
 grid(cAxes,"on")
 hold(cAxes,"on")
 
@@ -39,3 +42,4 @@ yTrendVals = polyval(p,xTrendVals);
 
 plot(cAxes,xTrendVals,yTrendVals,'--','LineWidth',2,'DisplayName','TrendLine','Color',pokeColorDict(pokeType))
 
+hold(cAxes,"off")

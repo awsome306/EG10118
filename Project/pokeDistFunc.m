@@ -1,4 +1,4 @@
-function output = pokeDistFunc(app, GenNum, plotPercentage)
+function pokeDistFunc(app, GenNum, plotPercentage)
 % POKEDISTFUNC Generate and Plot the distribution
 %   app includes app.pokeTable and app.pokeColorDict
 pokeTable = app.pokeTable;
