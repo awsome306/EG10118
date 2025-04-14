@@ -24,6 +24,7 @@ pokeColorDict = app.pokeColorDict;
 pokeX   = createPokeData(T,pokeType,statX);
 pokeY   = createPokeData(T,pokeType,statY);
 
+R = corrcoef(pokeX,pokeY);
 
 % Plot to UI AXES:
 cAxes = app.UIAxes; % Set of app axes to plot on
@@ -31,6 +32,9 @@ plot(cAxes,pokeX,pokeY,'x','DisplayName',pokeType,'Color',pokeColorDict(pokeType
 xlabel(cAxes,statX)
 ylabel(cAxes,statY)
 legend(cAxes,'Location','northwest')
+title(cAxes,"Correlation of "+statY+" vs. "+statX)
+numRDigits = 3;
+subtitle(cAxes,"R^2 ="+round(R(1,2).^2,numRDigits))
 grid(cAxes,"on")
 hold(cAxes,"on")
 
