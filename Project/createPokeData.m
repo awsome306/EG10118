@@ -1,5 +1,5 @@
 function pokeData = createPokeData(T,pokeType,pokeStat,pokeExclusive)
-%CREATEPOKEDATA Take an array of pokemon data filtered by type and
+%CREATEPOKEDATA Take an array of Pokemon data filtered by type and
 %individual stats. 
 %   Detailed explanation goes here
 
